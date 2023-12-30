@@ -21,10 +21,12 @@ This set of scripts facilitates and automates the process of coloring curve poin
 D:\MohoCustom\Moho Pro\Scripts\Menu\Text
 ```
 After installing and restarting Moho, two new items for working with scripts will appear in the menu.
+
 ![Run script in Photoshop](https://multwork.ru/images/txt_menu.png)
 
 
 2. The `get_color.jsx` script for Photoshop does not require installation. Launch it directly through the Photoshop menu, after opening the image file.
+
 ![Run script in Photoshop](https://multwork.ru/images/jsx.png)
 
 
