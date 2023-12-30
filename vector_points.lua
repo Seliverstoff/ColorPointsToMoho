@@ -14,15 +14,12 @@ function SS_ExportColorsPointData:Description()
 end
 
 function SS_ExportColorsPointData:Creator()
-    return "Seliverstoff Schoole"
+    return "Seliverstoff School"
 end
 
 function SS_ExportColorsPointData:UILabel()
-    return "Export Points Data " .. SS_ExportColorsPointData:Version()
+    return "Export Points Color Data " .. SS_ExportColorsPointData:Version()
 end
-
-
--- local moho = 
 
 -- Функция для сохранения данных в файл
 local function SaveToFile(filename, data)
@@ -35,26 +32,6 @@ local function SaveToFile(filename, data)
  end
 end
 
-local function ExportPointsAndColors(moho)
--- if moho.layer:LayerType() ~= MOHO.LT_VECTOR then
---  print("Активный слой не является векторным слоем")
---  return
--- end
-
--- local vectorLayer = moho:LayerAsVector(layer)
--- local mesh = vectorLayer:Mesh()
--- local dataToSave = ""
-
--- for i = 0, mesh:CountPoints() - 1 do
---  local point = mesh:Point(i)
---  local x, y = point:Loc().x, point:Loc().y
---  local color = point:Color() -- Получаем цвет точки
---  local r, g, b, a = color.r, color.g, color.b, color.a -- Извлекаем компоненты цвета
---  dataToSave = dataToSave .. string.format("%d:%f:%f:%d:%d:%d:%d\n", i, x, y, r, g, b, a)
--- end
-
--- SaveToFile("C:\\PointsAndColors.txt", dataToSave)
-end
 
 function SS_ExportColorsPointData:IsEnabled(moho)
     if (moho.layer:LayerType() ~= MOHO.LT_VECTOR) then
@@ -67,7 +44,6 @@ function SS_ExportColorsPointData:Run(moho)
     local vectorLayer = moho:LayerAsVector(moho.layer)
     local mesh = vectorLayer:Mesh()
     local dataToSave = ""
-
     for i = 0, mesh:CountPoints() - 1 do
         local point = mesh:Point(i)
         local x, y = point.fPos.x, point.fPos.y
@@ -75,10 +51,6 @@ function SS_ExportColorsPointData:Run(moho)
         local r, g, b, a = color.r, color.g, color.b, color.a -- Извлекаем компоненты цвета
         dataToSave = dataToSave .. string.format("%d:%f:%f:%d:%d:%d:%d\n", i, x, y, r, g, b, a)
     end
-    print(dataToSave)
-    SaveToFile("C:\\PointsAndColors.txt", dataToSave)
+    local chosenFile = LM.GUI.SaveFile("Сохранение файла данных")
+    SaveToFile(chosenFile, dataToSave)
 end  
-
-
--- Вызов функции для экспорта точек и цветов из текущего слоя
---ExportPointsAndColors(moho.layer)
